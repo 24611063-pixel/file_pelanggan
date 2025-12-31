@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>QRIS Payment - Sehat dan Sikat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Floating Navigation -->
+  <nav class="floating-nav">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <div class="logo-circle">
+          <span class="logo-text">S</span>
+          <span class="logo-ampersand">&</span>
+          <span class="logo-text">S</span>
+        </div>
+        <span class="logo-sub">Sehat dan Sikat</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html"><i class="fas fa-home"></i> <span class="nav-text">Home</span></a>
+        <a href="menu.html"><i class="fas fa-utensils"></i> <span class="nav-text">Menu</span></a>
+        <a href="cart.html" class="cart-nav">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-badge" id="nav-cart-count">0</span>
+          <span class="nav-text">Cart</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="page-header">
+      <h1>Pembayaran QRIS</h1>
+      <p>Scan kode QR di bawah untuk menyelesaikan pembayaran</p>
+    </div>
+    
+    <section class="qr-center">
+      <div class="qr-card">
+        <div class="qr-summary">
+          <h3>Detail Pembayaran</h3>
+          <div class="summary-item">
+            <span>Total Pembayaran</span>
+            <span id="order-total">Rp 0</span>
+          </div>
+          <div class="summary-item">
+            <span>Metode</span>
+            <span class="method-badge">QRIS</span>
+          </div>
+          <div class="summary-item">
+            <span>Status</span>
+            <span class="status-waiting">Menunggu Pembayaran</span>
+          </div>
+        </div>
+        
+        <div class="qr-container">
+          <div class="qr-display">
+            <div class="qr-code">
+              <img src="img/qris.png" alt="QR Code">
+            </div>
+            <div class="qr-amount">
+              <div class="amount-label">Jumlah Pembayaran</div>
+              <div class="amount-value" id="qr-amount">Rp 0</div>
+            </div>
+          </div>
+          
+          <div class="qr-instructions">
+            <h4><i class="fas fa-mobile-alt"></i> Cara Pembayaran:</h4>
+            <div class="instruction-steps">
+              <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                  <strong>Buka aplikasi pembayaran</strong>
+                  <p>Gunakan DANA, OVO, GoPay, LinkAja, atau mobile banking yang mendukung QRIS</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                  <strong>Pilih "Scan QR"</strong>
+                  <p>Cari menu scan QR code di aplikasi Anda</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                  <strong>Scan kode di atas</strong>
+                  <p>Arahkan kamera ke QR code dan pastikan jumlah pembayaran sesuai</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                  <strong>Konfirmasi pembayaran</strong>
+                  <p>Masukkan PIN atau verifikasi biometrik untuk menyelesaikan transaksi</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="payment-status">
+          <div class="status-timer">
+            <i class="fas fa-clock"></i>
+            <span>Selesaikan dalam <strong id="timer">05:00</strong></span>
+          </div>
+          <p class="status-note">Pembayaran akan diverifikasi otomatis. Anda tidak perlu klik tombol apa pun setelah scan.</p>
+        </div>
+        
+        <div class="payment-actions">
+          <a class="btn btn-secondary" href="payment.html">
+            <i class="fas fa-arrow-left"></i> Ganti Metode
+          </a>
+          <button class="btn btn-primary" onclick="simulatePayment()">
+            <i class="fas fa-check-circle"></i> Saya Sudah Bayar
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Load cart count
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('restaurant_cart')) || [];
+      const total = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('nav-cart-count').textContent = total;
+    }
+    
+    // Load order total
+    function loadOrderTotal() {
+      const total = localStorage.getItem('order_total') || 0;
+      const formatted = parseInt(total).toLocaleString('id-ID');
+      document.getElementById('order-total').textContent = `Rp ${formatted}`;
+      document.getElementById('qr-amount').textContent = `Rp ${formatted}`;
+    }
+    
+    // Timer countdown
+    function startTimer() {
+      let time = 300; // 5 minutes in seconds
+      const timerEl = document.getElementById('timer');
+      
+      const interval = setInterval(() => {
+        const minutes = Math.floor(time / 60);
+        const seconds = time % 60;
+        timerEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        
+        if (time <= 0) {
+          clearInterval(interval);
+          timerEl.textContent = "00:00";
+          timerEl.style.color = "#ff4757";
+        }
+        time--;
+      }, 1000);
+    }
+    
+    function simulatePayment() {
+      // Redirect to cart page to trigger thank you modal
+      window.location.href = 'cart.html?qris=true';
+    }
+    
+    // Initialize
+    updateCartCount();
+    loadOrderTotal();
+    startTimer();
+  </script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Pembayaran - Sehat dan Sikat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Floating Navigation -->
+  <nav class="floating-nav">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <div class="logo-circle">
+          <span class="logo-text">S</span>
+          <span class="logo-ampersand">&</span>
+          <span class="logo-text">S</span>
+        </div>
+        <span class="logo-sub">Sehat dan Sikat</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html"><i class="fas fa-home"></i> <span class="nav-text">Home</span></a>
+        <a href="menu.html"><i class="fas fa-utensils"></i> <span class="nav-text">Menu</span></a>
+        <a href="cart.html" class="cart-nav">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-badge" id="nav-cart-count">0</span>
+          <span class="nav-text">Cart</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="page-header">
+      <h1>Metode Pembayaran</h1>
+      <p>Pilih cara pembayaran yang paling nyaman untuk Anda</p>
+    </div>
+    
+    <section class="payment-center">
+      <div class="payment-card">
+        <div class="payment-summary">
+          <h3>Ringkasan Pesanan</h3>
+          <div class="summary-item">
+            <span>Total Pesanan</span>
+            <span id="order-total">Rp 0</span>
+          </div>
+        </div>
+        
+        <h2 class="payment-title">Pilih Metode Pembayaran</h2>
+        
+        <div class="payment-options-container">
+          <!-- QRIS OPTION -->
+          <div class="payment-option active" id="qris-option" onclick="selectPayment('qris')">
+            <div class="option-check">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="option-icon">
+              <i class="fas fa-qrcode"></i>
+            </div>
+            <div class="option-content">
+              <h4>QRIS (Digital Payment)</h4>
+              <p class="option-desc">Bayar dengan scan QR code menggunakan e-wallet atau mobile banking</p>
+              <div class="option-tags">
+                <span class="tag">DANA</span>
+                <span class="tag">OVO</span>
+                <span class="tag">GoPay</span>
+                <span class="tag">ShopeePay</span>
+                <span class="tag">LinkAja</span>
+                <span class="tag">Bank Transfer</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- CASH OPTION -->
+          <div class="payment-option" id="cash-option" onclick="selectPayment('cash')">
+            <div class="option-check">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="option-icon">
+              <i class="fas fa-money-bill-wave"></i>
+            </div>
+            <div class="option-content">
+              <h4>Cash / Tunai</h4>
+              <p class="option-desc">Bayar langsung di kasir saat mengambil pesanan</p>
+              <div class="option-note">
+                <i class="fas fa-info-circle"></i>
+                <span>Siapkan uang pas untuk kenyamanan transaksi</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- QRIS INSTRUCTION -->
+        <div class="payment-instruction active" id="qris-instruction">
+          <h4><i class="fas fa-lightbulb"></i> Cara Bayar QRIS:</h4>
+          <ol>
+            <li><strong>Pilih QRIS</strong> sebagai metode pembayaran</li>
+            <li>Klik <strong>"Lanjut ke QR Code"</strong></li>
+            <li><strong>Scan QR code</strong> yang muncul di halaman berikutnya</li>
+            <li>Konfirmasi pembayaran di aplikasi e-wallet/mobile banking Anda</li>
+            <li>Tunggu verifikasi otomatis (1-2 menit)</li>
+          </ol>
+          <div class="instruction-note">
+            <i class="fas fa-shield-alt"></i>
+            <span>Pembayaran QRIS aman dan terjamin dengan sistem keamanan Bank Indonesia</span>
+          </div>
+        </div>
+        
+        <!-- CASH INSTRUCTION -->
+        <div class="payment-instruction" id="cash-instruction">
+          <h4><i class="fas fa-lightbulb"></i> Cara Bayar Cash:</h4>
+          <ol>
+            <li><strong>Pilih Cash</strong> sebagai metode pembayaran</li>
+            <li>Klik <strong>"Konfirmasi Cash"</strong></li>
+            <li><strong>Tunjukkan nomor pesanan</strong> Anda di kasir</li>
+            <li>Bayar sesuai total yang tertera</li>
+            <li>Tunggu notifikasi pesanan siap</li>
+          </ol>
+          <div class="instruction-note">
+            <i class="fas fa-clock"></i>
+            <span>Pastikan Anda membayar sebelum mengambil pesanan di kasir</span>
+          </div>
+        </div>
+        
+        <div class="payment-actions">
+          <a href="cart.html" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Kembali ke Keranjang
+          </a>
+          <button class="btn btn-primary" id="pay-button" onclick="processPayment()">
+            <i class="fas fa-qrcode"></i> Lanjut ke QR Code
+          </button>
+        </div>
+        
+        <div class="payment-security">
+          <i class="fas fa-lock"></i>
+          <span>Transaksi Anda aman dan terenkripsi</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Current selected payment method
+    let selectedMethod = 'qris';
+    
+    // Load cart count
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('restaurant_cart')) || [];
+      const total = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('nav-cart-count').textContent = total;
+    }
+    
+    // Load order total
+    function loadOrderTotal() {
+      const total = localStorage.getItem('order_total') || 0;
+      const formatted = parseInt(total).toLocaleString('id-ID');
+      document.getElementById('order-total').textContent = `Rp ${formatted}`;
+    }
+    
+    // Select payment method
+    function selectPayment(method) {
+      selectedMethod = method;
+      
+      // Update UI for QRIS
+      const qrisOption = document.getElementById('qris-option');
+      const qrisInstruction = document.getElementById('qris-instruction');
+      
+      // Update UI for CASH
+      const cashOption = document.getElementById('cash-option');
+      const cashInstruction = document.getElementById('cash-instruction');
+      
+      // Update button
+      const payButton = document.getElementById('pay-button');
+      
+      if (method === 'qris') {
+        qrisOption.classList.add('active');
+        cashOption.classList.remove('active');
+        qrisInstruction.classList.add('active');
+        cashInstruction.classList.remove('active');
+        
+        payButton.innerHTML = '<i class="fas fa-qrcode"></i> Lanjut ke QR Code';
+        payButton.className = 'btn btn-primary';
+      } else {
+        cashOption.classList.add('active');
+        qrisOption.classList.remove('active');
+        cashInstruction.classList.add('active');
+        qrisInstruction.classList.remove('active');
+        
+        payButton.innerHTML = '<i class="fas fa-money-bill-wave"></i> Konfirmasi Cash';
+        payButton.className = 'btn btn-cash';
+      }
+    }
+    
+    // Process payment
+    function processPayment() {
+      localStorage.setItem('payment_method', selectedMethod);
+      
+      if (selectedMethod === 'qris') {
+        window.location.href = 'qris.html';
+      } else {
+        // For cash, trigger checkout directly
+        window.location.href = 'cart.html?cash=true';
+      }
+    }
+    
+    // Check if coming from cash payment in cart
+    function checkCashPayment() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('cash')) {
+        selectPayment('cash');
+      }
+    }
+    
+    // Initialize
+    updateCartCount();
+    loadOrderTotal();
+    checkCashPayment();
+  </script>
+</body>
+</html>

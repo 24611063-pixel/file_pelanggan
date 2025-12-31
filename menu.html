@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Menu - Sehat dan Sikat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Floating Navigation -->
+  <nav class="floating-nav">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <span class="logo-text">S & S</span>
+        <span class="logo-sub">Sehat dan Sikat</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html"><i class="fas fa-home"></i> <span class="nav-text">Home</span></a>
+        <a href="menu.html" class="active"><i class="fas fa-utensils"></i> <span class="nav-text">Menu</span></a>
+        <a href="cart.html" class="cart-nav">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-badge" id="nav-cart-count">0</span>
+          <span class="nav-text">Cart</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="page-header">
+      <h1>Our Premium Menu</h1>
+      <p>Pilih dari berbagai hidangan eksklusif kami yang dibuat dengan passion</p>
+    </div>
+    
+    <section class="menu-grid">
+      <!-- Menu Item 1 -->
+      <article class="menu-card">
+        <div class="menu-img-wrap">
+          <img src="img/Sparkling Blackberry Mojito.png" alt="Sparkling Blackberry Mojito">
+        </div>
+        <div class="menu-body">
+          <h3>Sparkling Blackberry Mojito</h3>
+          <p class="price">Rp 49.000</p>
+          <div class="qty-control">
+            <button type="button" class="qty-btn" onclick="changeQty(this,-1)">−</button>
+            <input type="number" class="qty-input" value="1" min="1">
+            <button type="button" class="qty-btn" onclick="changeQty(this,1)">+</button>
+          </div>
+          <button type="button" class="btn btn-menu add-to-cart" data-id="1" data-name="Sparkling Blackberry Mojito" data-price="49000">Tambah</button>
+        </div>
+      </article>
+
+      <!-- Menu Item 2 -->
+      <article class="menu-card">
+        <div class="menu-img-wrap">
+          <img src="img/Tropical Mango Sunrize Juice.png" alt="Tropical Mango Sunrize Juice">
+        </div>
+        <div class="menu-body">
+          <h3>Tropical Mango Sunrize Juice</h3>
+          <p class="price">Rp 35.000</p>
+          <div class="qty-control">
+            <button type="button" class="qty-btn" onclick="changeQty(this,-1)">−</button>
+            <input type="number" class="qty-input" value="1" min="1">
+            <button type="button" class="qty-btn" onclick="changeQty(this,1)">+</button>
+          </div>
+          <button type="button" class="btn btn-menu add-to-cart" data-id="2" data-name="Tropical Mango Sunrize Juice" data-price="35000">Tambah</button>
+        </div>
+      </article>
+
+      <!-- Menu Item 3 -->
+      <article class="menu-card">
+        <div class="menu-img-wrap">
+          <img src="img/Grilled Chicken & Feta Salad.png" alt="Grilled Chicken & Feta Salad">
+        </div>
+        <div class="menu-body">
+          <h3>Grilled Chicken & Feta Salad</h3>
+          <p class="price">Rp 78.000</p>
+          <div class="qty-control">
+            <button type="button" class="qty-btn" onclick="changeQty(this,-1)">−</button>
+            <input type="number" class="qty-input" value="1" min="1">
+            <button type="button" class="qty-btn" onclick="changeQty(this,1)">+</button>
+          </div>
+          <button type="button" class="btn btn-menu add-to-cart" data-id="3" data-name="Grilled Chicken & Feta Salad" data-price="78000">Tambah</button>
+        </div>
+      </article>
+
+      <!-- Menu Item 4 -->
+      <article class="menu-card">
+        <div class="menu-img-wrap">
+          <img src="img/Quinoa Prawn & Sweet Potato Bowl.png" alt="Quinoa Prawn & Sweet Potato Bowl">
+        </div>
+        <div class="menu-body">
+          <h3>Quinoa Prawn & Sweet Potato Bowl</h3>
+          <p class="price">Rp 95.000</p>
+          <div class="qty-control">
+            <button type="button" class="qty-btn" onclick="changeQty(this,-1)">−</button>
+            <input type="number" class="qty-input" value="1" min="1">
+            <button type="button" class="qty-btn" onclick="changeQty(this,1)">+</button>
+          </div>
+          <button type="button" class="btn btn-menu add-to-cart" data-id="4" data-name="Quinoa Prawn & Sweet Potato Bowl" data-price="95000">Tambah</button>
+        </div>
+      </article>
+
+      <!-- Menu Item 5 -->
+      <article class="menu-card">
+        <div class="menu-img-wrap">
+          <img src="img/Iced Vanilla Bean Latte.png" alt="Iced Vanilla Bean Latte">
+        </div>
+        <div class="menu-body">
+          <h3>Iced Vanilla Bean Latte</h3>
+          <p class="price">Rp 39.000</p>
+          <div class="qty-control">
+            <button type="button" class="qty-btn" onclick="changeQty(this,-1)">−</button>
+            <input type="number" class="qty-input" value="1" min="1">
+            <button type="button" class="qty-btn" onclick="changeQty(this,1)">+</button>
+          </div>
+          <button type="button" class="btn btn-menu add-to-cart" data-id="5" data-name="Iced Vanilla Bean Latte" data-price="39000">Tambah</button>
+        </div>
+      </article>
+
+      <!-- Menu Item 6 -->
+      <article class="menu-card">
+        <div class="menu-img-wrap">
+          <img src="img/The Luxe Signature Beef Burger.png" alt="The Luxe Signature Beef Burger">
+        </div>
+        <div class="menu-body">
+          <h3>The Luxe Signature Beef Burger</h3>
+          <p class="price">Rp 125.000</p>
+          <div class="qty-control">
+            <button type="button" class="qty-btn" onclick="changeQty(this,-1)">−</button>
+            <input type="number" class="qty-input" value="1" min="1">
+            <button type="button" class="qty-btn" onclick="changeQty(this,1)">+</button>
+          </div>
+          <button type="button" class="btn btn-menu add-to-cart" data-id="6" data-name="The Luxe Signature Beef Burger" data-price="125000">Tambah</button>
+        </div>
+      </article>
+
+      <!-- Menu Item 7 -->
+      <article class="menu-card">
+        <div class="menu-img-wrap">
+          <img src="img/Mineral Water.png" alt="Mineral Water">
+        </div>
+        <div class="menu-body">
+          <h3>Mineral Water</h3>
+          <p class="price">Rp 25.000</p>
+          <div class="qty-control">
+            <button type="button" class="qty-btn" onclick="changeQty(this,-1)">−</button>
+            <input type="number" class="qty-input" value="1" min="1">
+            <button type="button" class="qty-btn" onclick="changeQty(this,1)">+</button>
+          </div>
+          <button type="button" class="btn btn-menu add-to-cart" data-id="7" data-name="Mineral Water" data-price="25000">Tambah</button>
+        </div>
+      </article>
+
+      <!-- Menu Item 8 -->
+      <article class="menu-card">
+        <div class="menu-img-wrap">
+          <img src="img/Classic Creamy Carbonara.png" alt="Classic Creamy Carbonara">
+        </div>
+        <div class="menu-body">
+          <h3>Classic Creamy Carbonara</h3>
+          <p class="price">Rp 88.000</p>
+          <div class="qty-control">
+            <button type="button" class="qty-btn" onclick="changeQty(this,-1)">−</button>
+            <input type="number" class="qty-input" value="1" min="1">
+            <button type="button" class="qty-btn" onclick="changeQty(this,1)">+</button>
+          </div>
+          <button type="button" class="btn btn-menu add-to-cart" data-id="8" data-name="Classic Creamy Carbonara" data-price="88000">Tambah</button>
+        </div>
+      </article>
+
+      <!-- Menu Item 9 -->
+      <article class="menu-card">
+        <div class="menu-img-wrap">
+          <img src="img/Southern Style Crispy Chicken.png" alt="Southern Style Crispy Chicken">
+        </div>
+        <div class="menu-body">
+          <h3>Southern Style Crispy Chicken</h3>
+          <p class="price">Rp 85.000</p>
+          <div class="qty-control">
+            <button type="button" class="qty-btn" onclick="changeQty(this,-1)">−</button>
+            <input type="number" class="qty-input" value="1" min="1">
+            <button type="button" class="qty-btn" onclick="changeQty(this,1)">+</button>
+          </div>
+          <button type="button" class="btn btn-menu add-to-cart" data-id="9" data-name="Southern Style Crispy Chicken" data-price="85000">Tambah</button>
+        </div>
+      </article>
+
+      <!-- Menu Item 10 -->
+      <article class="menu-card">
+        <div class="menu-img-wrap">
+          <img src="img/Pan-Seared Salmon Grain Bowl.png" alt="Pan-Seared Salmon Grain Bowl">
+        </div>
+        <div class="menu-body">
+          <h3>Pan-Seared Salmon Grain Bowl</h3>
+          <p class="price">Rp 145.000</p>
+          <div class="qty-control">
+            <button type="button" class="qty-btn" onclick="changeQty(this,-1)">−</button>
+            <input type="number" class="qty-input" value="1" min="1">
+            <button type="button" class="qty-btn" onclick="changeQty(this,1)">+</button>
+          </div>
+          <button type="button" class="btn btn-menu add-to-cart" data-id="10" data-name="Pan-Seared Salmon Grain Bowl" data-price="145000">Tambah</button>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <!-- Cart Notification -->
+  <div id="cart-notification" class="cart-notification">
+    <i class="fas fa-check-circle"></i>
+    <span id="notification-text">Item ditambahkan ke keranjang!</span>
+  </div>
+
+  <script>
+    // Cart functionality
+    let cart = JSON.parse(localStorage.getItem('restaurant_cart')) || [];
+    
+    function updateCartCount() {
+      const total = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('nav-cart-count').textContent = total;
+      localStorage.setItem('restaurant_cart', JSON.stringify(cart));
+    }
+    
+    function showNotification(message) {
+      const notification = document.getElementById('cart-notification');
+      const text = document.getElementById('notification-text');
+      text.textContent = message;
+      notification.classList.add('show');
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+    
+    function changeQty(btn, delta) {
+      const wrapper = btn.closest('.qty-control');
+      const input = wrapper.querySelector('.qty-input');
+      let v = parseInt(input.value) || 1;
+      v += delta;
+      if (v < 1) v = 1;
+      input.value = v;
+    }
+    
+    // Add to cart buttons
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+      button.addEventListener('click', function() {
+        const wrapper = this.closest('.menu-body');
+        const input = wrapper.querySelector('.qty-input');
+        const qty = parseInt(input.value) || 1;
+        
+        const item = {
+          id: this.dataset.id,
+          name: this.dataset.name,
+          price: parseInt(this.dataset.price),
+          qty: qty
+        };
+        
+        // Check if item already in cart
+        const existingIndex = cart.findIndex(cartItem => cartItem.id === item.id);
+        if (existingIndex > -1) {
+          cart[existingIndex].qty += qty;
+        } else {
+          cart.push(item);
+        }
+        
+        updateCartCount();
+        showNotification(`${qty}x ${item.name} ditambahkan!`);
+        input.value = 1; // Reset quantity
+      });
+    });
+    
+    // Initialize cart count
+    updateCartCount();
+  </script>
+</body>
+</html>

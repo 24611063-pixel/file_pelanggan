@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Keranjang - Sehat dan Sikat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Floating Navigation -->
+  <nav class="floating-nav">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <div class="logo-circle">
+          <span class="logo-text">S</span>
+          <span class="logo-ampersand">&</span>
+          <span class="logo-text">S</span>
+        </div>
+        <span class="logo-sub">Sehat dan Sikat</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html"><i class="fas fa-home"></i> <span class="nav-text">Home</span></a>
+        <a href="menu.html"><i class="fas fa-utensils"></i> <span class="nav-text">Menu</span></a>
+        <a href="cart.html" class="active cart-nav">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-badge" id="nav-cart-count">0</span>
+          <span class="nav-text">Cart</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="page-header">
+      <h1>Keranjang Belanja</h1>
+      <p>Review pesanan Anda sebelum melanjutkan pembayaran</p>
+    </div>
+    
+    <section class="cart-center">
+      <div class="cart-card">
+        <div id="cart-items">
+          <div class="empty-cart">
+            <i class="fas fa-shopping-bag"></i>
+            <h3>Keranjang Kosong</h3>
+            <p>Belum ada item di keranjang Anda</p>
+            <a href="menu.html" class="btn btn-primary">Lihat Menu</a>
+          </div>
+        </div>
+        
+        <div class="cart-summary" id="cart-summary" style="display: none;">
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="subtotal">Rp 0</span>
+          </div>
+          <div class="summary-row total">
+            <span>Total Pembayaran</span>
+            <span class="grand" id="cart-total">Rp 0</span>
+          </div>
+        </div>
+
+        <div class="cart-actions" id="cart-actions" style="display: none;">
+          <button class="btn btn-secondary" onclick="updateCart()">
+            <i class="fas fa-sync-alt"></i> Update
+          </button>
+          <button class="btn btn-primary" onclick="checkout()">
+            <i class="fas fa-credit-card"></i> Lanjut ke Pembayaran
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Thank You Modal -->
+  <div id="thankyou-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2><i class="fas fa-check-circle"></i> Pesanan Dikonfirmasi!</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="success-animation">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <h3>Terima Kasih Atas Pesanan Anda!</h3>
+        <p>Pesanan Anda telah diterima dan sedang dipersiapkan dengan penuh perhatian oleh chef kami. Silakan duduk santai di area tunggu yang nyaman — kami akan segera menghubungi Anda ketika pesanan siap untuk dinikmati.</p>
+        <div class="order-details">
+          <div class="detail-item">
+            <i class="fas fa-receipt"></i>
+            <div>
+              <span class="detail-label">Nomor Pesanan</span>
+              <span class="detail-value">#SDS-<span id="order-number">0000</span></span>
+            </div>
+          </div>
+          <div class="detail-item">
+            <i class="fas fa-clock"></i>
+            <div>
+              <span class="detail-label">Estimasi Siap</span>
+              <span class="detail-value">15-20 menit</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-primary" onclick="closeModal()">
+            <i class="fas fa-home"></i> Kembali ke Home
+          </button>
+        </div>
+        <p class="modal-note">Halaman ini akan otomatis redirect dalam <span id="countdown">10</span> detik</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Load cart from localStorage
+    let cart = JSON.parse(localStorage.getItem('restaurant_cart')) || [];
+    
+    function updateCartCount() {
+      const total = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('nav-cart-count').textContent = total;
+    }
+    
+    function renderCart() {
+      const cartItems = document.getElementById('cart-items');
+      const cartSummary = document.getElementById('cart-summary');
+      const cartActions = document.getElementById('cart-actions');
+      const subtotalEl = document.getElementById('subtotal');
+      const cartTotal = document.getElementById('cart-total');
+      
+      if (cart.length === 0) {
+        cartItems.innerHTML = `
+          <div class="empty-cart">
+            <i class="fas fa-shopping-bag"></i>
+            <h3>Keranjang Kosong</h3>
+            <p>Belum ada item di keranjang Anda</p>
+            <a href="menu.html" class="btn btn-primary">Lihat Menu</a>
+          </div>
+        `;
+        cartSummary.style.display = 'none';
+        cartActions.style.display = 'none';
+        return;
+      }
+      
+      let html = `
+        <div class="cart-table-header">
+          <h3>Item Pesanan (${cart.length})</h3>
+        </div>
+        <div class="cart-items-list">
+      `;
+      
+      let grandTotal = 0;
+      
+      cart.forEach(item => {
+        const subtotal = item.price * item.qty;
+        grandTotal += subtotal;
+        html += `
+          <div class="cart-item-row">
+            <div class="item-info">
+              <h4>${item.name}</h4>
+              <p class="item-price">Rp ${item.price.toLocaleString('id-ID')}</p>
+            </div>
+            <div class="item-controls">
+              <div class="cart-qty-control">
+                <button type="button" class="qty-btn" onclick="decreaseQty('${item.id}')">−</button>
+                <span class="qty-display">${item.qty}</span>
+                <button type="button" class="qty-btn" onclick="increaseQty('${item.id}')">+</button>
+              </div>
+              <button class="btn-remove" onclick="removeItem('${item.id}')">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+            <div class="item-subtotal">
+              Rp ${subtotal.toLocaleString('id-ID')}
+            </div>
+          </div>
+        `;
+      });
+      
+      html += '</div>';
+      cartItems.innerHTML = html;
+      subtotalEl.textContent = `Rp ${grandTotal.toLocaleString('id-ID')}`;
+      cartTotal.textContent = `Rp ${grandTotal.toLocaleString('id-ID')}`;
+      cartSummary.style.display = 'block';
+      cartActions.style.display = 'flex';
+      
+      // Save total for checkout
+      localStorage.setItem('order_total', grandTotal);
+    }
+    
+    function increaseQty(id) {
+      const item = cart.find(item => item.id === id);
+      if (item) {
+        item.qty += 1;
+        localStorage.setItem('restaurant_cart', JSON.stringify(cart));
+        updateCartCount();
+        renderCart();
+      }
+    }
+    
+    function decreaseQty(id) {
+      const itemIndex = cart.findIndex(item => item.id === id);
+      if (itemIndex > -1) {
+        if (cart[itemIndex].qty > 1) {
+          cart[itemIndex].qty -= 1;
+        } else {
+          cart.splice(itemIndex, 1);
+        }
+        localStorage.setItem('restaurant_cart', JSON.stringify(cart));
+        updateCartCount();
+        renderCart();
+      }
+    }
+    
+    function removeItem(id) {
+      cart = cart.filter(item => item.id !== id);
+      localStorage.setItem('restaurant_cart', JSON.stringify(cart));
+      updateCartCount();
+      renderCart();
+    }
+    
+    function updateCart() {
+      // Already updated in real-time
+      showNotification('Keranjang diperbarui');
+    }
+    
+    // FIXED: Redirect to payment page instead of showing modal
+    function checkout() {
+      if (cart.length > 0) {
+        // Save order total to localStorage for payment page
+        const grandTotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+        localStorage.setItem('order_total', grandTotal);
+        
+        // Redirect to payment page
+        window.location.href = 'payment.html';
+      }
+    }
+    
+    // Function to complete order (called from payment page)
+    function completeOrder() {
+      if (cart.length === 0) return;
+      
+      // Generate random order number
+      const orderNum = Math.floor(1000 + Math.random() * 9000);
+      document.getElementById('order-number').textContent = orderNum;
+      
+      // Show modal
+      document.getElementById('thankyou-modal').style.display = 'flex';
+      
+      // Start countdown
+      let countdown = 10;
+      const countdownEl = document.getElementById('countdown');
+      countdownEl.textContent = countdown;
+      
+      countdownInterval = setInterval(() => {
+        countdown--;
+        countdownEl.textContent = countdown;
+        if (countdown <= 0) {
+          clearInterval(countdownInterval);
+          closeModal();
+        }
+      }, 1000);
+      
+      // Clear cart
+      localStorage.removeItem('restaurant_cart');
+      cart = [];
+      updateCartCount();
+    }
+    
+    function closeModal() {
+      clearInterval(countdownInterval);
+      document.getElementById('thankyou-modal').style.display = 'none';
+      window.location.href = 'index.html';
+    }
+    
+    function showNotification(message) {
+      // Create temporary notification
+      const notification = document.createElement('div');
+      notification.className = 'temp-notification';
+      notification.innerHTML = `<i class="fas fa-check"></i> ${message}`;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.classList.add('show');
+      }, 10);
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 3000);
+    }
+    
+    // Close modal when clicking X
+    document.querySelector('.modal-close').addEventListener('click', closeModal);
+    
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+      const modal = document.getElementById('thankyou-modal');
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+    
+    // Check if coming from payment page
+    function checkPaymentReturn() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('cash') || urlParams.has('qris')) {
+        completeOrder();
+      }
+    }
+    
+    // Initialize
+    updateCartCount();
+    renderCart();
+    checkPaymentReturn();
+  </script>
+</body>
+</html>
