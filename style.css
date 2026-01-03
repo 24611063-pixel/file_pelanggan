@@ -43,6 +43,13 @@ body {
   background-color: var(--bg-primary);
   line-height: 1.6;
   overflow-x: hidden;
+  /* FIX CONTENT KETUTUP FLOATING NAV */
+@media (max-width: 768px) {
+  body {
+    padding-top: 90px;
+  }
+}
+
 }
 
 .container {
@@ -182,7 +189,9 @@ body {
   align-items: center;
   overflow: hidden;
   background: linear-gradient(135deg, var(--dark-navy) 0%, var(--navy) 100%);
+  padding-top: 120px; /* ⬅️ TAMBAH INI */
 }
+
 
 .hero-overlay {
   position: absolute;
@@ -1408,6 +1417,37 @@ body {
 }
 
 @media (max-width: 768px) {
+  .hero-section {
+  padding-top: 140px;
+}
+
+  .hero-section {
+  min-height: auto;
+  padding-top: 120px;
+  padding-bottom: 60px;
+}
+.image-frame {
+  max-width: 90%;
+  margin: 0 auto;
+  transform: none;
+}
+.hero-buttons {
+  flex-direction: column;
+}
+
+.hero-buttons .btn {
+  width: 100%;
+  justify-content: center;
+}
+.hero-title {
+  font-size: 1.8rem;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  font-size: 0.95rem;
+}
+
   .hero-title {
     font-size: 2.5rem;
   }
@@ -2206,45 +2246,95 @@ body {
 
 /* ===== RESPONSIVE FIXES ===== */
 @media (max-width: 768px) {
+
+  /* =========================
+     FIX NAVBAR DI HP
+  ========================= */
+  .floating-nav {
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    border-radius: 0 0 24px 24px;
+    padding: 0.7rem 1rem;
+  }
+
+  /* =========================
+     FIX HERO KETIBAN NAVBAR
+  ========================= */
+  .hero-section {
+    min-height: auto;
+  }
+
+  .hero-content {
+    padding-top: 140px; /* INI KUNCI UTAMA */
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  /* =========================
+     HERO TYPOGRAPHY
+  ========================= */
+  .hero-title {
+    font-size: 2.4rem;
+    line-height: 1.15;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  /* =========================
+     NAV ICON ONLY
+  ========================= */
+  .nav-links .nav-text {
+    display: none;
+  }
+
+  .logo-sub {
+    display: none;
+  }
+
+  /* =========================
+     GRID FIXES
+  ========================= */
+  .features-grid,
+  .instruction-grid,
   .summary-details {
     grid-template-columns: 1fr;
   }
-  
-  .method-option {
-    flex-wrap: wrap;
-  }
-  
-  .method-content {
-    min-width: 100%;
-    margin-top: var(--space-sm);
-  }
-  
-  .payment-actions {
-    flex-direction: column;
-  }
-  
-  .btn-back, .btn-pay {
+
+  /* =========================
+     BUTTON FULL WIDTH
+  ========================= */
+  .btn-back,
+  .btn-pay {
     width: 100%;
     justify-content: center;
   }
-  
-  .instruction-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .qr-actions {
+
+  /* =========================
+     QR & PAYMENT
+  ========================= */
+  .qr-actions,
+  .payment-actions {
     flex-direction: column;
   }
-  
+
   .qr-code-box {
     width: 160px;
     height: 160px;
   }
-  
+
   .qr-container {
     padding: 1rem;
   }
 }
+
 
 @media (max-width: 480px) {
   .method-option {
