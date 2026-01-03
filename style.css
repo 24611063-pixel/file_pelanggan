@@ -44,108 +44,341 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   /* FIX CONTENT KETUTUP FLOATING NAV */
-/* ===============================
-   MOBILE FIX – FINAL VERSION
-   =============================== */
-
-/* Jangan kasih padding ke body (hindari dobel jarak) */
 @media (max-width: 768px) {
   body {
-    padding-top: 0;
+    padding-top: 90px;
   }
 }
 
-/* ===============================
-   NAVBAR + HERO FIX (HP)
-   =============================== */
-@media (max-width: 768px) {
+}
 
-  /* NAVBAR NEMPEL ATAS */
-  .floating-nav {
-    top: 0;
-    left: 0;
-    transform: none;
-    width: 100%;
-    border-radius: 0 0 24px 24px;
-    padding: 0.6rem 1rem;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+  padding-top: 100px;
+}
+
+/* ===== FLOATING NAVIGATION ===== */
+.floating-nav {
+  position: fixed;
+  top: var(--space-md);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1200px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  border-radius: 50px;
+  padding: var(--space-sm) var(--space-md);
+  box-shadow: 0 10px 30px rgba(13, 27, 42, 0.1);
+  z-index: 1000;
+  border: 1px solid rgba(224, 225, 221, 0.3);
+  transition: all 0.3s ease;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.logo-circle {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--slate-blue) 0%, var(--navy) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(65, 90, 119, 0.2);
+}
+
+.logo-text {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--off-white);
+  line-height: 1;
+}
+
+.logo-ampersand {
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  color: var(--light-gold);
+  margin: 0 2px;
+  font-weight: 500;
+}
+
+.logo-sub {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  color: var(--slate-blue);
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--navy);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1.2rem;
+  border-radius: 25px;
+  position: relative;
+}
+
+.nav-links a:hover {
+  color: var(--slate-blue);
+  background: rgba(119, 141, 169, 0.1);
+}
+
+.nav-links a.active {
+  color: var(--off-white);
+  background: linear-gradient(135deg, var(--slate-blue) 0%, var(--navy) 100%);
+  box-shadow: 0 4px 15px rgba(65, 90, 119, 0.2);
+}
+
+.cart-nav {
+  position: relative;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ff4757;
+  color: white;
+  font-size: 0.7rem;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border: 2px solid white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.nav-text {
+  font-size: 0.95rem;
+}
+
+/* ===== HERO SECTION ===== */
+.hero-section {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--dark-navy) 0%, var(--navy) 100%);
+  padding-top: 120px; /* ⬅️ TAMBAH INI */
+}
+
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(13, 27, 42, 0.9) 0%,
+    rgba(65, 90, 119, 0.7) 100%);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-md);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+.hero-text {
+  color: var(--off-white);
+}
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: var(--space-md);
+}
+
+.title-line {
+  display: block;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin-bottom: var(--space-lg);
+  max-width: 500px;
+  line-height: 1.8;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.hero-image {
+  position: relative;
+}
+
+.image-frame {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+  transform: perspective(1000px) rotateY(-10deg);
+  transition: transform 0.5s ease;
+}
+
+.image-frame:hover {
+  transform: perspective(1000px) rotateY(0deg);
+}
+
+.image-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.image-frame:hover img {
+  transform: scale(1.05);
+}
+
+.image-badge {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: var(--light-gold);
+  color: var(--dark-navy);
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.badge-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.badge-price {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--off-white);
+  font-size: 2rem;
+  animation: bounce 2s infinite;
+  cursor: pointer;
+  z-index: 2;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0) translateX(-50%);
   }
-
-  /* HERO SECTION (HAPUS JARAK BESAR) */
-  .hero-section {
-    min-height: auto;
-    padding-top: 0;
+  40% {
+    transform: translateY(-20px) translateX(-50%);
   }
-
-  /* JARAK AMAN HERO DARI NAVBAR */
-  .hero-content {
-    padding-top: 90px;     /* ⬅️ KUNCI UTAMA */
-    padding-bottom: 40px;
-    grid-template-columns: 1fr;
-    text-align: center;
+  60% {
+    transform: translateY(-10px) translateX(-50%);
   }
+}
 
-  /* HERO TEXT */
-  .hero-title {
-    font-size: 2.3rem;
-    line-height: 1.15;
-    margin-bottom: 1rem;
-  }
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.8rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  white-space: nowrap;
+}
 
-  .hero-subtitle {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    max-width: 100%;
-  }
+.btn-primary {
+  background: linear-gradient(135deg, var(--slate-blue) 0%, var(--navy) 100%);
+  color: var(--off-white);
+  box-shadow: 0 8px 20px rgba(65, 90, 119, 0.2);
+}
 
-  /* BUTTON */
-  .hero-buttons {
-    justify-content: center;
-    gap: 0.8rem;
-  }
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--light-blue) 0%, var(--slate-blue) 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(65, 90, 119, 0.3);
+}
 
-  .hero-buttons .btn {
-    width: 100%;
-    justify-content: center;
-  }
+.btn-secondary {
+  background: var(--off-white);
+  color: var(--dark-navy);
+  border: 2px solid var(--light-blue);
+}
 
-  /* NAV ICON ONLY */
-  .nav-links .nav-text {
-    display: none;
-  }
+.btn-secondary:hover {
+  background: var(--light-blue);
+  color: white;
+  transform: translateY(-3px);
+}
 
-  .logo-sub {
-    display: none;
-  }
+.btn-outline {
+  background: transparent;
+  color: var(--off-white);
+  border-color: var(--off-white);
+}
 
-  /* GRID UMUM */
-  .summary-details,
-  .instruction-grid,
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-3px);
+}
 
-  /* PAYMENT & QR */
-  .payment-actions,
-  .qr-actions {
-    flex-direction: column;
-  }
-
-  .btn-back,
-  .btn-pay {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .qr-code-box {
-    width: 160px;
-    height: 160px;
-  }
-
-  .qr-container {
-    padding: 1rem;
-  }
-}}
-
+.btn-large {
+  padding: 1.2rem 2.5rem;
+  font-size: 1.1rem;
+}
 
 /* ===== BUTTON MENU ===== */
 .btn-menu {
@@ -1185,7 +1418,7 @@ body {
 
 @media (max-width: 768px) {
   .hero-section {
-  padding-top: 140px;
+  padding-top: 60px;
 }
 
   .hero-section {
