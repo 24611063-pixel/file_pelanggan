@@ -1,3 +1,4 @@
+<!-- SIMPAN SEBAGAI payment.html -->
 <!doctype html>
 <html lang="id">
 <head>
@@ -6,218 +7,195 @@
   <title>Pembayaran - Sehat dan Sikat</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Floating Navigation -->
-  <nav class="floating-nav">
-    <div class="nav-container">
-      <div class="nav-logo">
-        <div class="logo-circle">
-          <span class="logo-text">S</span>
-          <span class="logo-ampersand">&</span>
-          <span class="logo-text">S</span>
-        </div>
-        <span class="logo-sub">Sehat dan Sikat</span>
+  <main style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: 'Inter', sans-serif;">
+    <h1 style="font-family: 'Cormorant Garamond', serif; text-align: center; color: #0d1b2a;">Metode Pembayaran</h1>
+    <p style="text-align: center; color: #666; margin-bottom: 30px;">Pilih cara pembayaran yang paling nyaman untuk Anda</p>
+    
+    <!-- Ringkasan Pesanan -->
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+      <h3 style="color: #0d1b2a;"><i class="fas fa-receipt"></i> Ringkasan Pesanan</h3>
+      <div id="order-summary" style="margin-top: 15px;">
+        <!-- Diisi JavaScript -->
       </div>
-      <div class="nav-links">
-        <a href="index.html"><i class="fas fa-home"></i> <span class="nav-text">Home</span></a>
-        <a href="menu.html"><i class="fas fa-utensils"></i> <span class="nav-text">Menu</span></a>
-        <a href="cart.html" class="cart-nav">
-          <i class="fas fa-shopping-bag"></i>
-          <span class="cart-badge" id="nav-cart-count">0</span>
-          <span class="nav-text">Cart</span>
-        </a>
-      </div>
-    </div>
-  </nav>
-
-  <main class="container">
-    <div class="page-header">
-      <h1>Metode Pembayaran</h1>
-      <p>Pilih cara pembayaran yang paling nyaman untuk Anda</p>
     </div>
     
-    <section class="payment-center">
-      <div class="payment-card">
-        <!-- Order Summary -->
-        <div class="order-summary">
-          <h3><i class="fas fa-receipt"></i> Ringkasan Pesanan</h3>
-          <div class="summary-details">
-            <div class="detail-item">
-              <span>Total Pesanan</span>
-              <span class="amount" id="order-total">Rp 0</span>
-            </div>
-            <div class="detail-item">
-              <span>Jumlah Item</span>
-              <span id="item-count">0 item</span>
-            </div>
-          </div>
+    <!-- Pilih Metode -->
+    <h2 style="color: #0d1b2a; margin-bottom: 20px;">Pilih Metode</h2>
+    
+    <!-- QRIS -->
+    <div id="qris-method" onclick="selectMethod('qris')" style="border: 2px solid #6c91c2; background: rgba(108, 145, 194, 0.05); border-radius: 10px; padding: 20px; margin-bottom: 15px; cursor: pointer;">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <div style="width: 40px; height: 40px; background: #6c91c2; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+          <i class="fas fa-qrcode"></i>
         </div>
-        
-        <!-- Payment Methods -->
-        <h2 class="section-title">Pilih Metode</h2>
-        
-        <div class="payment-methods">
-          <!-- QRIS Method -->
-          <div class="method-option active" onclick="selectMethod('qris')" id="qris-method">
-            <div class="method-select">
-              <div class="select-circle">
-                <i class="fas fa-check"></i>
-              </div>
-            </div>
-            <div class="method-icon">
-              <i class="fas fa-qrcode"></i>
-            </div>
-            <div class="method-content">
-              <h4>QRIS Digital</h4>
-              <p class="method-desc">Bayar dengan scan QR code</p>
-              <div class="method-tags">
-                <span>DANA</span>
-                <span>OVO</span>
-                <span>GoPay</span>
-                <span>Bank</span>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Cash Method -->
-          <div class="method-option" onclick="selectMethod('cash')" id="cash-method">
-            <div class="method-select">
-              <div class="select-circle">
-                <i class="fas fa-check"></i>
-              </div>
-            </div>
-            <div class="method-icon cash">
-              <i class="fas fa-money-bill-wave"></i>
-            </div>
-            <div class="method-content">
-              <h4>Tunai / Cash</h4>
-              <p class="method-desc">Bayar langsung di kasir</p>
-              <div class="method-note">
-                <i class="fas fa-info-circle"></i>
-                Siapkan uang pas saat pengambilan
-              </div>
-            </div>
-          </div>
+        <div>
+          <h4 style="margin: 0; color: #0d1b2a;">QRIS Digital</h4>
+          <p style="margin: 5px 0; color: #666;">Bayar dengan scan QR code</p>
         </div>
-        
-        <!-- Instructions -->
-        <div class="instructions-container">
-          <!-- QRIS Instructions -->
-          <div class="instruction-card active" id="qris-instruction">
-            <div class="instruction-header">
-              <i class="fas fa-qrcode"></i>
-              <h4>Cara Bayar QRIS</h4>
-            </div>
-            <ol class="instruction-steps">
-              <li><strong>Pilih QRIS</strong> di atas sebagai metode pembayaran</li>
-              <li>Klik <strong>"Lanjut ke QR Code"</strong></li>
-              <li><strong>Scan QR code</strong> yang muncul di halaman berikutnya</li>
-              <li>Konfirmasi pembayaran di aplikasi e-wallet/mobile banking</li>
-              <li>Tunggu verifikasi otomatis (1-2 menit)</li>
-            </ol>
-          </div>
-          
-          <!-- Cash Instructions -->
-          <div class="instruction-card" id="cash-instruction">
-            <div class="instruction-header">
-              <i class="fas fa-money-bill-wave"></i>
-              <h4>Cara Bayar Cash</h4>
-            </div>
-            <ol class="instruction-steps">
-              <li><strong>Pilih Cash</strong> di atas sebagai metode pembayaran</li>
-              <li>Klik <strong>"Konfirmasi Cash"</strong></li>
-              <li><strong>Tunjukkan nomor pesanan</strong> Anda di kasir</li>
-              <li>Bayar sesuai total yang tertera</li>
-              <li>Tunggu notifikasi pesanan siap</li>
-            </ol>
-          </div>
-        </div>
-        
-        <!-- Payment Actions -->
-        <div class="payment-actions">
-          <a href="cart.html" class="btn btn-back">
-            <i class="fas fa-arrow-left"></i> Kembali
-          </a>
-          <button class="btn btn-pay" id="pay-button" onclick="processPayment()">
-            <i class="fas fa-qrcode"></i> Lanjut ke QR Code
-          </button>
-        </div>
-        
-        <!-- Security Note -->
-        <div class="security-note">
-          <i class="fas fa-shield-alt"></i>
-          <span>Transaksi Anda aman dan terenkripsi</span>
+        <div style="margin-left: auto; width: 24px; height: 24px; border: 2px solid #6c91c2; border-radius: 50%; background: #6c91c2; display: flex; align-items: center; justify-content: center;">
+          <i class="fas fa-check" style="color: white; font-size: 12px;"></i>
         </div>
       </div>
-    </section>
+    </div>
+    
+    <!-- Cash -->
+    <div id="cash-method" onclick="selectMethod('cash')" style="border: 2px solid #e0e0e0; border-radius: 10px; padding: 20px; margin-bottom: 30px; cursor: pointer;">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <div style="width: 40px; height: 40px; background: #28a745; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+          <i class="fas fa-money-bill-wave"></i>
+        </div>
+        <div>
+          <h4 style="margin: 0; color: #0d1b2a;">Tunai / Cash</h4>
+          <p style="margin: 5px 0; color: #666;">Bayar langsung di kasir</p>
+          <div style="background: #fff3cd; color: #856404; padding: 5px 10px; border-radius: 5px; font-size: 14px; margin-top: 5px;">
+            <i class="fas fa-info-circle"></i> Siapkan uang pas
+          </div>
+        </div>
+        <div style="margin-left: auto; width: 24px; height: 24px; border: 2px solid #e0e0e0; border-radius: 50%;">
+          <i class="fas fa-check" style="color: white; font-size: 12px;"></i>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Tombol -->
+    <div style="display: flex; gap: 15px; margin-top: 30px;">
+      <a href="customer_form.html" style="flex: 1; text-align: center; background: #e9ecef; color: #495057; padding: 15px; border-radius: 8px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">
+        <i class="fas fa-arrow-left"></i> Kembali
+      </a>
+      <button id="pay-button" onclick="processPayment()" style="flex: 1; background: #6c91c2; color: white; padding: 15px; border-radius: 8px; border: none; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+        <i class="fas fa-qrcode"></i> Lanjut ke QR Code
+      </button>
+    </div>
   </main>
 
   <script>
-    // Current selected method
     let selectedMethod = 'qris';
     
-    // Load cart count
-    function updateCartCount() {
-      const cart = JSON.parse(localStorage.getItem('restaurant_cart')) || [];
-      const total = cart.reduce((sum, item) => sum + item.qty, 0);
-      document.getElementById('nav-cart-count').textContent = total;
-      document.getElementById('item-count').textContent = `${total} item`;
-    }
-    
-    // Load order total
-    function loadOrderTotal() {
-      const total = localStorage.getItem('order_total') || 0;
-      const formatted = parseInt(total).toLocaleString('id-ID');
-      document.getElementById('order-total').textContent = `Rp ${formatted}`;
-    }
-    
-    // Select payment method
-    function selectMethod(method) {
-      selectedMethod = method;
-      
-      // Update active states
-      const qrisMethod = document.getElementById('qris-method');
-      const cashMethod = document.getElementById('cash-method');
-      const qrisInstruction = document.getElementById('qris-instruction');
-      const cashInstruction = document.getElementById('cash-instruction');
-      const payButton = document.getElementById('pay-button');
-      
-      if (method === 'qris') {
-        qrisMethod.classList.add('active');
-        cashMethod.classList.remove('active');
-        qrisInstruction.classList.add('active');
-        cashInstruction.classList.remove('active');
+    function updateSummary() {
+      try {
+        const cart = JSON.parse(localStorage.getItem('cart_items')) || [];
+        const total = localStorage.getItem('order_total') || 0;
+        const customer = JSON.parse(localStorage.getItem('customer_data')) || {};
         
-        payButton.innerHTML = '<i class="fas fa-qrcode"></i> Lanjut ke QR Code';
-        payButton.className = 'btn btn-pay';
-      } else {
-        cashMethod.classList.add('active');
-        qrisMethod.classList.remove('active');
-        cashInstruction.classList.add('active');
-        qrisInstruction.classList.remove('active');
+        let html = `
+          <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <span>Total Pesanan:</span>
+            <strong style="color: #6c91c2;">Rp ${parseInt(total).toLocaleString('id-ID')}</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <span>Jumlah Item:</span>
+            <span>${cart.reduce((sum, item) => sum + (item.qty || 0), 0)} item</span>
+          </div>
+        `;
         
-        payButton.innerHTML = '<i class="fas fa-money-bill-wave"></i> Konfirmasi Cash';
-        payButton.className = 'btn btn-pay cash';
+        if (customer.customer_name) {
+          html += `
+            <div style="display: flex; justify-content: space-between;">
+              <span>Pelanggan:</span>
+              <span>${customer.customer_name} (Meja ${customer.table_number || '-'})</span>
+            </div>
+          `;
+        }
+        
+        document.getElementById('order-summary').innerHTML = html;
+        
+      } catch (error) {
+        console.error("Error:", error);
       }
     }
     
-    // Process payment
+    function selectMethod(method) {
+      selectedMethod = method;
+      
+      const qrisDiv = document.getElementById('qris-method');
+      const cashDiv = document.getElementById('cash-method');
+      const qrisCheck = qrisDiv.querySelector('.fa-check').parentElement;
+      const cashCheck = cashDiv.querySelector('.fa-check').parentElement;
+      const button = document.getElementById('pay-button');
+      
+      if (method === 'qris') {
+        qrisDiv.style.borderColor = '#6c91c2';
+        qrisDiv.style.background = 'rgba(108, 145, 194, 0.05)';
+        qrisCheck.style.background = '#6c91c2';
+        qrisCheck.style.borderColor = '#6c91c2';
+        
+        cashDiv.style.borderColor = '#e0e0e0';
+        cashDiv.style.background = 'white';
+        cashCheck.style.background = 'transparent';
+        cashCheck.style.borderColor = '#e0e0e0';
+        
+        button.innerHTML = '<i class="fas fa-qrcode"></i> Lanjut ke QR Code';
+        button.style.background = '#6c91c2';
+      } else {
+        cashDiv.style.borderColor = '#28a745';
+        cashDiv.style.background = 'rgba(40, 167, 69, 0.05)';
+        cashCheck.style.background = '#28a745';
+        cashCheck.style.borderColor = '#28a745';
+        
+        qrisDiv.style.borderColor = '#e0e0e0';
+        qrisDiv.style.background = 'white';
+        qrisCheck.style.background = 'transparent';
+        qrisCheck.style.borderColor = '#e0e0e0';
+        
+        button.innerHTML = '<i class="fas fa-money-bill-wave"></i> Konfirmasi Cash';
+        button.style.background = '#28a745';
+      }
+    }
+    
     function processPayment() {
+      const cart = JSON.parse(localStorage.getItem('cart_items')) || [];
+      const total = localStorage.getItem('order_total') || 0;
+      const customer = JSON.parse(localStorage.getItem('customer_data')) || {};
+      
+      if (cart.length === 0) {
+        alert('Keranjang kosong!');
+        return;
+      }
+      
+      if (!customer.customer_name || !customer.table_number) {
+        alert('Data pelanggan tidak lengkap!');
+        window.location.href = 'customer_form.html';
+        return;
+      }
+      
+      // Generate order data
+      const orderId = 'ORD-' + Date.now();
+      const invoiceNo = 'INV-' + Date.now();
+      
+      const orderData = {
+        order_id: orderId,
+        invoice_no: invoiceNo,
+        customer_name: customer.customer_name,
+        table_number: customer.table_number,
+        notes: customer.notes || '',
+        items: cart,
+        total_price: total,
+        payment_method: selectedMethod,
+        status: 'pending',
+        created_at: new Date().toISOString()
+      };
+      
+      // Simpan ke localStorage
+      localStorage.setItem('current_order', JSON.stringify(orderData));
       localStorage.setItem('payment_method', selectedMethod);
       
+      console.log('Order:', orderData);
+      
+      // Redirect sesuai metode
       if (selectedMethod === 'qris') {
-        window.location.href = 'qris.html';
+        window.location.href = `qris_payment.html?order_id=${orderId}`;
       } else {
-        // For cash, trigger checkout directly
-        window.location.href = 'cart.html?cash=true';
+        window.location.href = `thankyou.html?order_id=${orderId}&method=cash`;
       }
     }
     
     // Initialize
-    updateCartCount();
-    loadOrderTotal();
+    document.addEventListener('DOMContentLoaded', function() {
+      updateSummary();
+      selectMethod('qris');
+    });
   </script>
 </body>
 </html>

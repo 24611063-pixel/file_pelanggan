@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Data Pelanggan - Sehat dan Sikat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Hapus referensi style.css yang bermasalah dulu untuk testing -->
+  <!-- <link rel="stylesheet" href="style.css"> -->
+  
+  <style>
+    /* CSS Variables yang diperlukan */
+    :root {
+      --bg-card: #ffffff;
+      --space-md: 1.5rem;
+      --space-lg: 2rem;
+      --dark-navy: #0d1b2a;
+      --off-white: #e0e1dd;
+      --slate-blue: #6c91c2;
+      --light-blue: #a9d6e5;
+      --font-sans: 'Inter', sans-serif;
+      --font-serif: 'Cormorant Garamond', serif;
+    }
+    
+    /* Reset dan base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+      min-height: 100vh;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* Floating Navigation */
+    .floating-nav {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 20px rgba(13, 27, 42, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .logo-circle {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #6c91c2 0%, #415a77 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 700;
+      position: relative;
+    }
+    
+    .logo-ampersand {
+      font-size: 0.8rem;
+      margin: 0 2px;
+    }
+    
+    .logo-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #0d1b2a;
+    }
+    
+    /* Container utama */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    /* Header */
+    .page-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      color: #0d1b2a;
+      margin-bottom: 0.5rem;
+    }
+    
+    .page-header p {
+      color: #5a6c7d;
+      font-size: 1.1rem;
+    }
+    
+    /* Form center */
+    .form-center {
+      display: flex;
+      justify-content: center;
+      padding: 1.5rem 0;
+    }
+    
+    .form-card {
+      width: 100%;
+      max-width: 600px;
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 15px 40px rgba(13, 27, 42, 0.1);
+      border: 1px solid rgba(224, 225, 221, 0.5);
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      color: #0d1b2a;
+      margin-bottom: 0.5rem;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 2px solid #e0e1dd;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #6c91c2;
+    }
+    
+    /* Order summary */
+    .order-summary {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin: 2rem 0;
+      border: 1px solid #e9ecef;
+    }
+    
+    .order-summary h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      color: #0d1b2a;
+    }
+    
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(224, 225, 221, 0.5);
+    }
+    
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0;
+      margin-top: 0.5rem;
+      border-top: 2px solid #a9d6e5;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    
+    .amount {
+      color: #6c91c2;
+      font-size: 1.2rem;
+    }
+    
+    /* Form actions */
+    .form-actions {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.5rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      flex: 1;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #6c91c2 0%, #415a77 100%);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(108, 145, 194, 0.3);
+    }
+    
+    .btn-secondary {
+      background: #e9ecef;
+      color: #495057;
+    }
+    
+    .btn-secondary:hover {
+      background: #dee2e6;
+      transform: translateY(-2px);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+      
+      .page-header h1 {
+        font-size: 2rem;
+      }
+      
+      .form-actions {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating Navigation -->
+  <nav class="floating-nav">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <div class="logo-circle">
+          <span class="logo-text">S</span>
+          <span class="logo-ampersand">&</span>
+          <span class="logo-text">S</span>
+        </div>
+        <span class="logo-sub">Sehat dan Sikat</span>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="page-header">
+      <h1>Data Pelanggan</h1>
+      <p>Masukkan data diri Anda untuk melanjutkan pemesanan</p>
+    </div>
+    
+    <section class="form-center">
+      <div class="form-card">
+        <form id="customer-form">
+          <div class="form-group">
+            <label for="customer_name"><i class="fas fa-user"></i> Nama Lengkap</label>
+            <input type="text" id="customer_name" name="customer_name" required placeholder="Masukkan nama Anda">
+          </div>
+          
+          <div class="form-group">
+            <label for="table_number"><i class="fas fa-chair"></i> Nomor Meja</label>
+            <select id="table_number" name="table_number" required>
+              <option value="">Pilih Meja</option>
+              <option value="1">Meja 1</option>
+              <option value="2">Meja 2</option>
+              <option value="3">Meja 3</option>
+              <option value="4">Meja 4</option>
+              <option value="5">Meja 5</option>
+              <option value="6">Meja 6</option>
+              <option value="7">Meja 7</option>
+              <option value="8">Meja 8</option>
+              <option value="9">Meja 9</option>
+              <option value="10">Meja 10</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="notes"><i class="fas fa-sticky-note"></i> Catatan Tambahan (Opsional)</label>
+            <textarea id="notes" name="notes" rows="3" placeholder="Contoh: Tidak pakai bawang, pedas sedang, dll."></textarea>
+          </div>
+          
+          <div class="order-summary">
+            <h3><i class="fas fa-receipt"></i> Ringkasan Pesanan</h3>
+            <div id="form-order-summary">
+              <p class="empty-cart">Keranjang kosong atau data tidak tersedia</p>
+            </div>
+          </div>
+          
+          <div class="form-actions">
+            <a href="cart.html" class="btn btn-secondary">
+              <i class="fas fa-arrow-left"></i> Kembali
+            </a>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-credit-card"></i> Lanjut ke Pembayaran
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    console.log("Customer form loaded");
+    
+    // Safe localStorage access dengan error handling
+    let cart = [];
+    let total = 0;
+    
+    try {
+      const cartData = localStorage.getItem('cart_items');
+      const totalData = localStorage.getItem('order_total');
+      
+      if (cartData) {
+        cart = JSON.parse(cartData);
+      }
+      
+      if (totalData) {
+        total = parseFloat(totalData) || 0;
+      }
+    } catch (error) {
+      console.error("Error reading from localStorage:", error);
+    }
+    
+    function renderOrderSummary() {
+      const summaryEl = document.getElementById('form-order-summary');
+      
+      if (!summaryEl) {
+        console.error("Element #form-order-summary not found!");
+        return;
+      }
+      
+      // Jika cart kosong
+      if (!cart || cart.length === 0) {
+        summaryEl.innerHTML = '<p class="empty-cart">Keranjang kosong atau data tidak tersedia</p>';
+        return;
+      }
+      
+      let html = '';
+      
+      cart.forEach(item => {
+        if (item && item.name && item.qty && item.price) {
+          html += `
+            <div class="summary-item">
+              <span>${item.name} (${item.qty}x)</span>
+              <span>Rp ${(item.price * item.qty).toLocaleString('id-ID')}</span>
+            </div>
+          `;
+        }
+      });
+      
+      html += `
+        <div class="summary-total">
+          <span>Total</span>
+          <span class="amount">Rp ${total.toLocaleString('id-ID')}</span>
+        </div>
+      `;
+      
+      summaryEl.innerHTML = html;
+    }
+    
+    // Handle form submission
+    const customerForm = document.getElementById('customer-form');
+    
+    if (customerForm) {
+      customerForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Validasi form
+        const customerName = document.getElementById('customer_name').value.trim();
+        const tableNumber = document.getElementById('table_number').value;
+        
+        if (!customerName) {
+          alert("Harap masukkan nama lengkap!");
+          document.getElementById('customer_name').focus();
+          return;
+        }
+        
+        if (!tableNumber) {
+          alert("Harap pilih nomor meja!");
+          document.getElementById('table_number').focus();
+          return;
+        }
+        
+        // Jika cart kosong, tetap izinkan untuk testing
+        if (cart.length === 0) {
+          if (!confirm("Keranjang Anda kosong. Lanjutkan ke pembayaran?")) {
+            return;
+          }
+        }
+        
+        const customerData = {
+          customer_name: customerName,
+          table_number: tableNumber,
+          notes: document.getElementById('notes').value,
+          items: cart,
+          total_price: total,
+          timestamp: new Date().toISOString()
+        };
+        
+        try {
+          // Simpan data pelanggan ke localStorage
+          localStorage.setItem('customer_data', JSON.stringify(customerData));
+          console.log("Customer data saved:", customerData);
+          
+          // Redirect ke payment page
+          window.location.href = 'payment.html';
+        } catch (error) {
+          console.error("Error saving to localStorage:", error);
+          alert("Terjadi kesalahan saat menyimpan data. Coba lagi.");
+        }
+      });
+    } else {
+      console.error("Form #customer-form not found!");
+    }
+    
+    // Initialize
+    renderOrderSummary();
+    
+    // Debug info
+    console.log("Cart items:", cart);
+    console.log("Total:", total);
+  </script>
+</body>
+</html>

@@ -3,53 +3,750 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Terima Kasih</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <title>Terima Kasih - Sehat dan Sikat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* CSS Variables dan Global Styles */
+    :root {
+      --bg-card: #ffffff;
+      --space-md: 1.5rem;
+      --space-lg: 2rem;
+      --dark-navy: #0d1b2a;
+      --off-white: #e0e1dd;
+      --slate-blue: #6c91c2;
+      --light-blue: #a9d6e5;
+      --success-green: #28a745;
+      --warning-orange: #ffc107;
+      --font-sans: 'Inter', sans-serif;
+      --font-serif: 'Cormorant Garamond', serif;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: var(--font-sans);
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+      min-height: 100vh;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+    }
+    
+    /* Container */
+    .thankyou-container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 15px 40px rgba(13, 27, 42, 0.1);
+      overflow: hidden;
+    }
+    
+    /* Header */
+    .thankyou-header {
+      background: linear-gradient(135deg, var(--slate-blue) 0%, #415a77 100%);
+      color: white;
+      padding: 40px 30px;
+      text-align: center;
+      position: relative;
+    }
+    
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: var(--success-green);
+      font-size: 2.5rem;
+    }
+    
+    .thankyou-header h1 {
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    
+    .thankyou-header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    
+    /* Content */
+    .thankyou-content {
+      padding: 30px;
+    }
+    
+    /* Order Details */
+    .order-details-card {
+      background: #f8f9fa;
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      border: 1px solid #e9ecef;
+    }
+    
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      color: var(--dark-navy);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--light-blue);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    #order-items {
+      margin-bottom: 20px;
+    }
+    
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .order-total {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 0;
+      font-weight: bold;
+      font-size: 1.2rem;
+      border-top: 2px solid var(--slate-blue);
+      margin-top: 10px;
+      color: var(--slate-blue);
+    }
+    
+    /* Customer Info */
+    .customer-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    
+    .info-box {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid var(--slate-blue);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    }
+    
+    .info-box strong {
+      display: block;
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+    
+    .info-box span {
+      font-size: 1.1rem;
+      color: var(--dark-navy);
+      font-weight: 500;
+    }
+    
+    /* Payment Info */
+    .payment-info-card {
+      background: #e7f3ff;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      border-left: 5px solid var(--slate-blue);
+    }
+    
+    .payment-status {
+      display: inline-block;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    
+    .status-success {
+      background: rgba(40, 167, 69, 0.1);
+      color: var(--success-green);
+    }
+    
+    .status-pending {
+      background: rgba(255, 193, 7, 0.1);
+      color: var(--warning-orange);
+    }
+    
+    /* Next Steps */
+    .next-steps-card {
+      background: #fff3cd;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      border-left: 5px solid var(--warning-orange);
+    }
+    
+    .steps-list {
+      padding-left: 20px;
+      margin-top: 15px;
+    }
+    
+    .steps-list li {
+      margin-bottom: 10px;
+      color: #856404;
+    }
+    
+    /* Order ID Section */
+    .order-id-section {
+      text-align: center;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      border: 1px solid #e9ecef;
+    }
+    
+    .order-id {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--slate-blue);
+      margin: 10px 0;
+    }
+    
+    /* Database Status */
+    .db-status {
+      text-align: center;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px 0;
+      display: none;
+    }
+    
+    .db-success {
+      background: rgba(40, 167, 69, 0.1);
+      border: 1px solid var(--success-green);
+      color: var(--success-green);
+    }
+    
+    .db-error {
+      background: rgba(220, 53, 69, 0.1);
+      border: 1px solid #dc3545;
+      color: #dc3545;
+    }
+    
+    /* Buttons */
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px 30px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      min-width: 180px;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--slate-blue) 0%, #415a77 100%);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(108, 145, 194, 0.3);
+    }
+    
+    .btn-success {
+      background: linear-gradient(135deg, var(--success-green) 0%, #218838 100%);
+      color: white;
+    }
+    
+    .btn-success:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
+    }
+    
+    .btn-secondary {
+      background: #6c757d;
+      color: white;
+    }
+    
+    .btn-secondary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(108, 117, 125, 0.3);
+    }
+    
+    /* Footer */
+    .thankyou-footer {
+      text-align: center;
+      padding: 20px;
+      color: #6c757d;
+      font-size: 0.9rem;
+      border-top: 1px solid #eee;
+      margin-top: 30px;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .thankyou-header h1 {
+        font-size: 2rem;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+      
+      body {
+        padding: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Navigation Header -->
-  <header class="top-header">
-    <div class="header-left">
-      <div class="header-title">Sehat dan Sikat</div>
+  <div class="thankyou-container">
+    <!-- Header -->
+    <div class="thankyou-header">
+      <div class="success-icon">
+        <i class="fas fa-check"></i>
+      </div>
+      <h1>Pesanan Berhasil!</h1>
+      <p id="thankyou-message">Terima kasih telah memesan di Sehat dan Sikat</p>
     </div>
-    <!-- Floating Navigation -->
-<nav class="floating-nav">
-  <div class="nav-container">
-    <div class="nav-logo">
-      <span class="logo-text">S & S</span>
-      <span class="logo-sub">Sehat dan Sikat</span>
-    </div>
-    <div class="nav-links">
-      <a href="index.html"><i class="fas fa-home"></i> Home</a>
-      <a href="menu.html" class="active"><i class="fas fa-utensils"></i> Menu</a>
-      <a href="cart.html" class="cart-nav">
-        <i class="fas fa-shopping-bag"></i>
-        <span class="cart-badge" id="nav-cart-count">0</span>
-      </a>
+    
+    <!-- Content -->
+    <div class="thankyou-content">
+      <!-- Database Status -->
+      <div id="db-status" class="db-status" style="display: none;">
+        <i class="fas fa-spinner fa-spin"></i> <span id="db-message">Menyimpan data ke database...</span>
+      </div>
+      
+      <!-- Order ID -->
+      <div class="order-id-section">
+        <p><i class="far fa-clock"></i> <span id="order-time">-</span></p>
+        <div class="order-id" id="order-id-display">-</div>
+        <p>ID Pesanan Anda</p>
+      </div>
+      
+      <!-- Order Details -->
+      <div class="order-details-card">
+        <h3 class="section-title"><i class="fas fa-receipt"></i> Detail Pesanan</h3>
+        <div id="order-items">
+          <p style="text-align: center; color: #666;">Memuat detail pesanan...</p>
+        </div>
+        <div class="order-total">
+          <span>Total Pembayaran</span>
+          <span id="order-total">Rp 0</span>
+        </div>
+      </div>
+      
+      <!-- Customer Info -->
+      <div class="customer-info">
+        <div class="info-box">
+          <strong>Nama Pelanggan</strong>
+          <span id="customer-name">-</span>
+        </div>
+        <div class="info-box">
+          <strong>Nomor Meja</strong>
+          <span id="table-number">-</span>
+        </div>
+        <div class="info-box">
+          <strong>Metode Pembayaran</strong>
+          <span id="payment-method">-</span>
+        </div>
+      </div>
+      
+      <!-- Payment Info -->
+      <div class="payment-info-card">
+        <h3 class="section-title"><i class="fas fa-info-circle"></i> Informasi Pembayaran</h3>
+        <div id="payment-info">
+          <!-- Diisi JavaScript -->
+        </div>
+      </div>
+      
+      <!-- Next Steps -->
+      <div class="next-steps-card">
+        <h3 class="section-title"><i class="fas fa-clipboard-list"></i> Langkah Selanjutnya</h3>
+        <div id="next-steps">
+          <!-- Diisi JavaScript -->
+        </div>
+      </div>
+      
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <a href="index.html" class="btn btn-primary">
+          <i class="fas fa-home"></i> Kembali ke Home
+        </a>
+        <button onclick="printReceipt()" class="btn btn-success">
+          <i class="fas fa-print"></i> Cetak Struk
+        </button>
+        <a href="menu.html" class="btn btn-secondary">
+          <i class="fas fa-utensils"></i> Pesan Lagi
+        </a>
+      </div>
+      
+      <!-- Footer -->
+      <div class="thankyou-footer">
+        <p><i class="fas fa-shield-alt"></i> Transaksi Anda aman dan terenkripsi</p>
+        <p>© 2024 Sehat dan Sikat. Semua hak dilindungi.</p>
+      </div>
     </div>
   </div>
-</nav>
-  </header>
-
-  <main class="container">
-    <section class="thanks-center">
-      <div class="thanks-card">
-        <h1>Thank You for Your Order!</h1>
-        <p>Pesananmu sudah kami terima. Silakan duduk santai — kami akan beri kabar ketika siap.</p>
-        <a class="btn primary" href="index.html">Kembali ke Home</a>
-      </div>
-    </section>
-  </main>
 
   <script>
-    // Clear cart after order
-    localStorage.removeItem('restaurant_cart');
-    localStorage.removeItem('order_total');
-    localStorage.removeItem('payment_method');
+    // ================================
+    // FUNGSI UNTUK SUBMIT KE DATABASE
+    // ================================
+    async function submitToDatabase(orderData) {
+  try {
+    console.log("🔄 Mengirim data ke server...");
+    showDbStatus("Menyimpan data...", "loading");
     
-    // Update cart count to 0
-    document.getElementById('cart-count').textContent = '0';
+    // Coba koneksi dulu
+    const testResponse = await fetch('test_server.php');
+    if (!testResponse.ok) {
+      throw new Error("Server PHP tidak merespon");
+    }
+    
+    // Kirim data
+    const response = await fetch('submit_order.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(orderData)
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const result = await response.json();
+    console.log("Server response:", result);
+    
+    if (result.success) {
+      showDbStatus("✅ Data berhasil disimpan", "success");
+      return true;
+    } else {
+      showDbStatus(`⚠️ ${result.message}`, "error");
+      return false;
+    }
+    
+  } catch (error) {
+    console.error("❌ Network error:", error);
+    
+    // Fallback: Simpan ke localStorage sebagai backup
+    const backupKey = 'order_backup_' + (orderData.order_id || Date.now());
+    localStorage.setItem(backupKey, JSON.stringify(orderData));
+    
+    showDbStatus("⚠️ Data disimpan lokal (offline mode)", "error");
+    return false;
+  }
+}
+    
+    // ================================
+    // FUNGSI UNTUK TAMPILKAN STATUS DATABASE
+    // ================================
+    function showDbStatus(message, type) {
+      const statusEl = document.getElementById('db-status');
+      const messageEl = document.getElementById('db-message');
+      
+      statusEl.style.display = 'block';
+      messageEl.innerHTML = message;
+      
+      // Hapus semua class
+      statusEl.className = 'db-status';
+      
+      // Tambah class sesuai type
+      if (type === 'success') {
+        statusEl.classList.add('db-success');
+        messageEl.innerHTML = '<i class="fas fa-check-circle"></i> ' + message;
+      } else if (type === 'error') {
+        statusEl.classList.add('db-error');
+        messageEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + message;
+      } else if (type === 'loading') {
+        statusEl.classList.add('db-success');
+        messageEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ' + message;
+      }
+      
+      // Auto hide setelah 5 detik untuk success
+      if (type === 'success') {
+        setTimeout(() => {
+          statusEl.style.display = 'none';
+        }, 5000);
+      }
+    }
+    
+    // ================================
+    // FUNGSI UNTUK MEMUAT DATA PESANAN
+    // ================================
+    async function loadOrderData() {
+      try {
+        console.log("📥 Memuat data pesanan...");
+        
+        // 1. Coba ambil dari localStorage
+        let orderData = localStorage.getItem('current_order');
+        
+        if (orderData) {
+          orderData = JSON.parse(orderData);
+          console.log("📦 Data dari localStorage:", orderData);
+        } 
+        // 2. Jika tidak ada, cek URL parameter
+        else {
+          const urlParams = new URLSearchParams(window.location.search);
+          const orderId = urlParams.get('order_id');
+          const paymentMethod = urlParams.get('method');
+          
+          if (orderId) {
+            console.log("🔗 Mengambil dari URL params:", orderId, paymentMethod);
+            
+            // Rekonstruksi data dari localStorage lainnya
+            const cart = JSON.parse(localStorage.getItem('cart_items')) || [];
+            const total = localStorage.getItem('order_total') || 0;
+            const customer = JSON.parse(localStorage.getItem('customer_data')) || {};
+            
+            orderData = {
+              order_id: orderId,
+              invoice_no: 'INV-' + Date.now(),
+              customer_name: customer.customer_name || 'Pelanggan',
+              table_number: customer.table_number || '-',
+              notes: customer.notes || '',
+              items: cart,
+              total_price: total,
+              payment_method: paymentMethod || 'cash',
+              status: 'pending',
+              created_at: new Date().toISOString()
+            };
+            
+            // Simpan ke localStorage untuk referensi
+            localStorage.setItem('current_order', JSON.stringify(orderData));
+          }
+        }
+        
+        if (orderData) {
+          // Tampilkan data di halaman
+          displayOrderData(orderData);
+          
+          // KIRIM DATA KE DATABASE
+          const submitted = await submitToDatabase(orderData);
+          
+          if (submitted) {
+            console.log("✅ Data berhasil dikirim ke database");
+          } else {
+            console.log("⚠️ Data hanya disimpan di localStorage");
+          }
+          
+          // Kosongkan cart setelah order selesai
+          clearCart();
+        } else {
+          showErrorMessage("Tidak ada data pesanan yang ditemukan.");
+        }
+        
+      } catch (error) {
+        console.error("❌ Error loading order data:", error);
+        showErrorMessage("Terjadi kesalahan saat memuat data pesanan.");
+      }
+    }
+    
+    // ================================
+    // FUNGSI UNTUK MENAMPILKAN DATA
+    // ================================
+    function displayOrderData(orderData) {
+      console.log("🖥️ Menampilkan data:", orderData);
+      
+      // 1. Update header message
+      const customerName = orderData.customer_name || 'Pelanggan';
+      document.getElementById('thankyou-message').textContent = 
+        `Terima kasih ${customerName} telah memesan di Sehat dan Sikat!`;
+      
+      // 2. Update order ID dan waktu
+      document.getElementById('order-id-display').textContent = orderData.order_id || '-';
+      document.getElementById('order-time').textContent = 
+        new Date(orderData.created_at || new Date()).toLocaleString('id-ID');
+      
+      // 3. Update order items
+      const orderItemsEl = document.getElementById('order-items');
+      let itemsHtml = '';
+      
+      if (orderData.items && orderData.items.length > 0) {
+        orderData.items.forEach(item => {
+          if (item && item.name) {
+            const itemTotal = (item.price || 0) * (item.qty || 1);
+            itemsHtml += `
+              <div class="order-item">
+                <span>${item.name} (${item.qty || 1}x)</span>
+                <span>Rp ${itemTotal.toLocaleString('id-ID')}</span>
+              </div>
+            `;
+          }
+        });
+      } else {
+        itemsHtml = '<p style="text-align: center; color: #666;">Tidak ada item dalam pesanan</p>';
+      }
+      
+      orderItemsEl.innerHTML = itemsHtml;
+      
+      // 4. Update total
+      document.getElementById('order-total').textContent = 
+        `Rp ${parseInt(orderData.total_price || 0).toLocaleString('id-ID')}`;
+      
+      // 5. Update customer info
+      document.getElementById('customer-name').textContent = customerName;
+      document.getElementById('table-number').textContent = orderData.table_number || '-';
+      document.getElementById('payment-method').textContent = 
+        orderData.payment_method === 'qris' ? 'QRIS Digital' : 'Tunai / Cash';
+      
+      // 6. Update payment info
+      const paymentInfoEl = document.getElementById('payment-info');
+      if (orderData.payment_method === 'qris') {
+        paymentInfoEl.innerHTML = `
+          <p><strong>Metode Pembayaran:</strong> QRIS Digital</p>
+          <div class="payment-status status-success">
+            <i class="fas fa-check-circle"></i> Pembayaran Berhasil
+          </div>
+          <p style="margin-top: 10px;">Pembayaran Anda telah diverifikasi secara otomatis.</p>
+        `;
+      } else {
+        paymentInfoEl.innerHTML = `
+          <p><strong>Metode Pembayaran:</strong> Tunai / Cash</p>
+          <div class="payment-status status-pending">
+            <i class="fas fa-clock"></i> Menunggu Pembayaran
+          </div>
+          <p style="margin-top: 10px;">Silakan tunjukkan ID pesanan di kasir untuk melakukan pembayaran.</p>
+        `;
+      }
+      
+      // 7. Update next steps
+      const nextStepsEl = document.getElementById('next-steps');
+      if (orderData.payment_method === 'qris') {
+        nextStepsEl.innerHTML = `
+          <ol class="steps-list">
+            <li>Pesanan Anda sedang diproses oleh dapur</li>
+            <li>Nomor meja: <strong>${orderData.table_number || '-'}</strong></li>
+            <li>Estimasi waktu penyajian: 15-25 menit</li>
+            <li>Anda akan diberitahu ketika pesanan siap</li>
+          </ol>
+        `;
+      } else {
+        nextStepsEl.innerHTML = `
+          <ol class="steps-list">
+            <li><strong>Tunjukkan ID pesanan di kasir</strong> untuk melakukan pembayaran</li>
+            <li>Setelah pembayaran, pesanan akan diproses</li>
+            <li>Nomor meja: <strong>${orderData.table_number || '-'}</strong></li>
+            <li>Estimasi waktu penyajian: 15-25 menit setelah pembayaran</li>
+          </ol>
+        `;
+      }
+    }
+    
+    // ================================
+    // FUNGSI BANTUAN
+    // ================================
+    
+    // Fungsi untuk menampilkan error
+    function showErrorMessage(message) {
+      document.getElementById('order-items').innerHTML = 
+        `<p style="text-align: center; color: #dc3545;">${message}</p>`;
+      document.getElementById('thankyou-message').textContent = 'Terjadi Kesalahan';
+    }
+    
+    // Fungsi untuk mengosongkan cart
+    function clearCart() {
+      localStorage.removeItem('cart_items');
+      localStorage.removeItem('order_total');
+      // Jangan hapus customer_data dan current_order agar bisa dilihat di halaman ini
+      console.log("🛒 Cart telah dikosongkan");
+    }
+    
+    // Fungsi untuk print struk
+    function printReceipt() {
+      const orderId = document.getElementById('order-id-display').textContent;
+      const orderTime = document.getElementById('order-time').textContent;
+      const customerName = document.getElementById('customer-name').textContent;
+      const tableNumber = document.getElementById('table-number').textContent;
+      const total = document.getElementById('order-total').textContent;
+      const orderItems = document.getElementById('order-items').innerHTML;
+      
+      const printWindow = window.open('', '_blank');
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Struk - ${orderId}</title>
+            <style>
+              body { font-family: Arial, sans-serif; padding: 20px; max-width: 300px; margin: 0 auto; }
+              .header { text-align: center; margin-bottom: 20px; border-bottom: 2px dashed #000; padding-bottom: 15px; }
+              .store-name { font-size: 24px; font-weight: bold; margin-bottom: 5px; }
+              .receipt { margin-top: 20px; }
+              .item { display: flex; justify-content: space-between; margin: 5px 0; }
+              .total { border-top: 2px solid #000; margin-top: 15px; padding-top: 15px; font-weight: bold; font-size: 18px; }
+              .footer { text-align: center; margin-top: 30px; font-size: 12px; color: #666; border-top: 1px dashed #000; padding-top: 15px; }
+              .info { margin: 10px 0; font-size: 14px; }
+            </style>
+          </head>
+          <body>
+            <div class="header">
+              <div class="store-name">Sehat dan Sikat</div>
+              <p>ID: ${orderId}</p>
+              <p>${orderTime}</p>
+            </div>
+            
+            <div class="info">
+              <p><strong>Pelanggan:</strong> ${customerName}</p>
+              <p><strong>Meja:</strong> ${tableNumber}</p>
+            </div>
+            
+            <div class="receipt">
+              ${orderItems.replace(/order-item/g, 'item')}
+              <div class="total">
+                <span>TOTAL</span>
+                <span>${total}</span>
+              </div>
+            </div>
+            
+            <div class="footer">
+              <p>Terima kasih atas kunjungan Anda!</p>
+              <p>*** Struk ini sebagai bukti pemesanan ***</p>
+            </div>
+            
+            <script>
+              window.onload = function() {
+                window.print();
+                setTimeout(function() { window.close(); }, 500);
+              }
+            <\/script>
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
+    }
+    
+    // ================================
+    // INISIALISASI
+    // ================================
+    document.addEventListener('DOMContentLoaded', function() {
+      loadOrderData();
+    });
   </script>
 </body>
 </html>

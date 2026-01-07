@@ -114,6 +114,7 @@
   <script>
     // Load cart from localStorage
     let cart = JSON.parse(localStorage.getItem('restaurant_cart')) || [];
+    let countdownInterval; // Deklarasi variabel untuk timer
     
     function updateCartCount() {
       const total = cart.reduce((sum, item) => sum + item.qty, 0);
@@ -223,51 +224,116 @@
       showNotification('Keranjang diperbarui');
     }
     
-    // FIXED: Redirect to payment page instead of showing modal
+    // FIXED: Redirect to customer form page
     function checkout() {
       if (cart.length > 0) {
         // Save order total to localStorage for payment page
         const grandTotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
         localStorage.setItem('order_total', grandTotal);
+        localStorage.setItem('cart_items', JSON.stringify(cart)); // SIMPAN CART ITEMS
         
-        // Redirect to payment page
-        window.location.href = 'payment.html';
+        // Redirect ke halaman input data pelanggan DULU
+        window.location.href = 'customer_form.html'; // FILE BARU
+      }
+    }
+    
+    // Fungsi untuk menyimpan pesanan ke database
+    async function saveOrderToDatabase(orderData) {
+      try {
+        const response = await fetch('api/process_order.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(orderData)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          return {
+            success: true,
+            order_id: result.order_id,
+            invoice_no: result.invoice_no
+          };
+        } else {
+          console.error('Gagal menyimpan pesanan:', result.message);
+          return {
+            success: false,
+            message: result.message
+          };
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        return {
+          success: false,
+          message: 'Network error: ' + error.message
+        };
       }
     }
     
     // Function to complete order (called from payment page)
-    function completeOrder() {
+    async function completeOrder() {
       if (cart.length === 0) return;
       
-      // Generate random order number
-      const orderNum = Math.floor(1000 + Math.random() * 9000);
-      document.getElementById('order-number').textContent = orderNum;
+      // Ambil data dari localStorage
+      const customerData = JSON.parse(localStorage.getItem('customer_data')) || {};
+      const paymentMethod = localStorage.getItem('payment_method') || 'cash';
+      const grandTotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
       
-      // Show modal
-      document.getElementById('thankyou-modal').style.display = 'flex';
+      // Siapkan data untuk dikirim ke database
+      const orderData = {
+        customer_name: customerData.customer_name || 'Guest',
+        table_number: customerData.table_number || 0,
+        notes: customerData.notes || '',
+        items: cart,
+        total_price: grandTotal,
+        payment_method: paymentMethod
+      };
       
-      // Start countdown
-      let countdown = 10;
-      const countdownEl = document.getElementById('countdown');
-      countdownEl.textContent = countdown;
+      // Simpan ke database
+      const saveResult = await saveOrderToDatabase(orderData);
       
-      countdownInterval = setInterval(() => {
-        countdown--;
+      if (saveResult.success) {
+        // Generate random order number (fallback)
+        const orderNum = saveResult.order_id || Math.floor(1000 + Math.random() * 9000);
+        
+        document.getElementById('order-number').textContent = orderNum;
+        
+        // Show modal
+        document.getElementById('thankyou-modal').style.display = 'flex';
+        
+        // Start countdown
+        let countdown = 10;
+        const countdownEl = document.getElementById('countdown');
         countdownEl.textContent = countdown;
-        if (countdown <= 0) {
-          clearInterval(countdownInterval);
-          closeModal();
-        }
-      }, 1000);
-      
-      // Clear cart
-      localStorage.removeItem('restaurant_cart');
-      cart = [];
-      updateCartCount();
+        
+        countdownInterval = setInterval(() => {
+          countdown--;
+          countdownEl.textContent = countdown;
+          if (countdown <= 0) {
+            clearInterval(countdownInterval);
+            closeModal();
+          }
+        }, 1000);
+        
+        // Clear cart dan data localStorage
+        localStorage.removeItem('restaurant_cart');
+        localStorage.removeItem('customer_data');
+        localStorage.removeItem('payment_method');
+        localStorage.removeItem('order_total');
+        localStorage.removeItem('cart_items');
+        cart = [];
+        updateCartCount();
+      } else {
+        alert('Gagal menyimpan pesanan: ' + saveResult.message);
+      }
     }
     
     function closeModal() {
-      clearInterval(countdownInterval);
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+      }
       document.getElementById('thankyou-modal').style.display = 'none';
       window.location.href = 'index.html';
     }
@@ -303,10 +369,17 @@
     });
     
     // Check if coming from payment page
-    function checkPaymentReturn() {
+    async function checkPaymentReturn() {
       const urlParams = new URLSearchParams(window.location.search);
+      
       if (urlParams.has('cash') || urlParams.has('qris')) {
-        completeOrder();
+        const paymentMethod = urlParams.has('cash') ? 'cash' : 'qris';
+        localStorage.setItem('payment_method', paymentMethod);
+        
+        // Tunggu sebentar sebelum completeOrder
+        setTimeout(() => {
+          completeOrder();
+        }, 500);
       }
     }
     

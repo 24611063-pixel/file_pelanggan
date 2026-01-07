@@ -1,0 +1,9 @@
+[2026-01-06 22:53:11] === START PROCESS ===
+[2026-01-06 22:53:11] Raw input received: {"order_id":"ORD-1767739509425","invoice_no":"INV-1767739509425","customer_name":"salma","table_number":"3","notes":"gh","items":[{"id":"1","name":"Sparkling Blackberry Mojito","price":49000,"qty":1},{"id":"2","name":"Tropical Mango Sunrize Juice","price":35000,"qty":2},{"id":"3","name":"Grilled Chicken & Feta Salad","price":78000,"qty":1}],"total_price":"197000","payment_method":"cash","status":"pending","created_at":"2026-01-06T22:45:09.425Z"}
+[2026-01-06 22:53:11] Data parsed successfully
+[2026-01-06 22:53:11] EXCEPTION: Unknown database 'sehstdamäkat'
+[2026-01-06 22:53:11] Trying fallback to file...
+[2026-01-06 22:53:11] Created orders_backup folder
+[2026-01-06 22:53:11] Data saved to file: orders_backup/order_ORD-1767739509425.json
+[2026-01-06 22:53:11] === END PROCESS ===
+
